@@ -1,15 +1,22 @@
 import React, { useRef, useState, Suspense } from 'react';
+import Yamaha from './models/yamaha.js';
 import Triumph from './models/triumph.js';
 import Datsun from './models/datsun.js';
 import Porsche from './models/porsche.js';
 import Header from './header.js';
 
 const Home = () => {
+  const yamaha = useRef(null);
   const triumph = useRef(null);
   const datsun = useRef(null);
   const porsche = useRef(null);
   const [page, setPage] = useState(0);
-  const carousel = [triumph, datsun, porsche];
+  const carousel = [yamaha, triumph, datsun, porsche];
+
+  const set = (index) => {
+    carousel[index].current.scrollIntoView({behavior: "smooth", block: "nearest"});
+    setPage(index);
+  }
 
   const forward = () => {
     if (page === carousel.length - 1) {
@@ -33,13 +40,30 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      <Header set={set} />
       <button className="back moveButton" onClick={back}>{'<'}</button>
       <button className="forward moveButton" onClick={forward}>{'>'}</button>
-      <div style={{width: "300vw", display: "flex", marginTop: "10vh"}}>
-        <div className="model" ref={triumph}><Triumph /></div>
-        <div className="model" ref={datsun}><Datsun /></div>
-        <div className="model" ref={porsche}><Porsche /></div>
+      <div style={{width: "400vw", display: "flex", marginTop: "10vh"}}>
+        <div className="model" ref={yamaha}>
+          <div className="make">Yamaha</div>
+          <Yamaha />
+          <div className="mod">MT-09</div>
+        </div>
+        <div className="model" ref={triumph}>
+          <div className="make">Triumph</div>
+          <Triumph />
+          <div className="mod">Bonneville</div>
+        </div>
+        <div className="model" ref={datsun}>
+          <div className="make">Datsun</div>
+          <Datsun />
+          <div className="mod">240K-GT</div>
+        </div>
+        <div className="model" ref={porsche}>
+          <div className="make">Porsche</div>
+          <Porsche />
+          <div className="mod">911 930 Turbo</div>
+        </div>
       </div>
     </div>
   )

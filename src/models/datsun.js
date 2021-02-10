@@ -11,7 +11,7 @@ const Datsun = () => {
   return (
     <Canvas
       colorManagement
-      camera={{position: [-50, 0, 5], fov: 6}}
+      camera={{position: [-50, 0, 5], fov: 5}}
     >
       <Suspense fallback={null}>
         <ambientLight intensity={8} />
